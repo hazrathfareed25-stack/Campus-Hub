@@ -42,5 +42,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ CampusHub server started`);
+  console.log(`✅ CampusHub server running on port ${PORT}`);
 });
