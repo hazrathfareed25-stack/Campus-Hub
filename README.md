@@ -24,7 +24,7 @@ node seed.js      # populates demo users + listings (only needed once)
 node server.js
 ```
 
-Then open **https://campushub-live-je7s.onrender.com** in your browser.
+Then open **https://campushub-backend-je7s.onrender.com** in your browser.
 
 ### Demo login
 ```

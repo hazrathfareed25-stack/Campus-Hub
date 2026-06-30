@@ -42,5 +42,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ CampusHub server running on port ${PORT}`);
+  console.log(`✅ CampusHub server running on https://campushub-backend-je7s.onrender.com:${PORT}`);
 });
