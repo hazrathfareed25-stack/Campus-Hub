@@ -42,5 +42,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ CampusHub server running on http://localhost:${PORT}`);
+  console.log(`✅ CampusHub server running on port ${PORT}`);
 });
