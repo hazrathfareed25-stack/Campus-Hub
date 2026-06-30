@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusHub — Buy • Sell • Connect on Campus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="blob-bg">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<div id="toast-root"></div>
+
+<nav>
+  <div class="logo" onclick="goTo('home')" style="cursor:pointer">🎒 Campus<span class="dot">Hub</span></div>
+  <ul class="nav-links">
+    <li><a onclick="goTo('marketplace')">Marketplace</a></li>
+    <li><a onclick="goTo('sell')">Sell</a></li>
+    <li><a onclick="goTo('chat')">Chat</a></li>
+  </ul>
+  <div class="nav-actions" id="nav-actions"></div>
+</nav>
+
+<!-- ================= HOME ================= -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">✨ Verified students only</div>
+      <h1>Your campus<br><span class="hl">flea market,</span><br>but make it <span class="hl2">cute.</span></h1>
+      <p>Sell your old textbooks, snag a mini fridge for half price, and chat with people who actually go to your school. No randoms, no scams — just your campus.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="goTo('marketplace')">🛍️ Start shopping</button>
+        <button class="btn btn-ghost" onclick="goTo('sell')">📦 List an item</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="sticker-card card-1" style="--r:-7deg;">
+        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&q=60" alt="textbooks">
+        <div class="sc-title">Calc II Textbook + Notes</div>
+        <div class="sc-price">₹450</div>
+      </div>
+      <div class="sticker-card card-2" style="--r:8deg;">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=60" alt="bike">
+        <div class="sc-title">Hostel Bicycle</div>
+        <div class="sc-price">₹2,200</div>
+      </div>
+      <div class="badge-float">🔥 Hot<br>Deals</div>
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="trust-item"><div class="num">12K+</div><div class="lbl">Verified students</div></div>
+    <div class="trust-item"><div class="num">38K+</div><div class="lbl">Items sold</div></div>
+    <div class="trust-item"><div class="num">4.9★</div><div class="lbl">Avg. trust score</div></div>
+    <div class="trust-item"><div class="num">0</div><div class="lbl">Scams tolerated</div></div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <div><h2>Shop by <span class="accent">vibe</span></h2><p>Everything a broke college student actually needs.</p></div>
+    </div>
+    <div class="cat-grid" id="home-categories"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><h2>Fresh off the <span class="accent">grid</span> 🆕</h2><p>Just listed by students near you.</p></div>
+      <button class="btn btn-ghost btn-sm" onclick="goTo('marketplace')">View all →</button>
+    </div>
+    <div class="prod-grid" id="home-products"></div>
+  </section>
+
+  <div class="cta-banner">
+    <h2>Got stuff collecting dust? 👀</h2>
+    <p>List it in under 2 minutes — totally free.</p>
+    <button class="btn btn-ghost" onclick="goTo('sell')">🚀 List your first item</button>
+  </div>
+</div>
+
+<!-- ================= MARKETPLACE ================= -->
+<div class="page" id="page-marketplace">
+  <section>
+    <div class="section-head">
+      <div><h2>The <span class="accent">Marketplace</span> 🛍️</h2><p id="marketplace-count">Loading...</p></div>
+    </div>
+    <div class="marketplace-controls" id="marketplace-controls"></div>
+    <div class="prod-grid" id="marketplace-grid"></div>
+  </section>
+</div>
+
+<!-- ================= PRODUCT ================= -->
+<div class="page" id="page-product">
+  <section id="product-content"></section>
+</div>
+
+<!-- ================= SELL ================= -->
+<div class="page" id="page-sell">
+  <section style="max-width:680px;margin:0 auto;">
+    <div class="section-head"><div><h2>List an <span class="accent">item</span> 📦</h2><p>Takes less than 2 minutes.</p></div></div>
+    <form class="sell-form" onsubmit="handleSellSubmit(event)">
+      <label>Title<input name="title" required placeholder="e.g. Scientific Calculator fx-991"></label>
+      <label>Description<textarea name="description" rows="4" placeholder="Condition, why you're selling, any extras included..."></textarea></label>
+      <div class="form-row">
+        <label>Price (₹)<input name="price" type="number" min="1" required placeholder="500"></label>
+        <label>Category
+          <select name="category" required id="sell-category"></select>
+        </label>
+      </div>
+      <div class="form-row">
+        <label>Condition
+          <select name="condition">
+            <option value="new">New</option>
+            <option value="like-new">Like new</option>
+            <option value="good" selected>Good</option>
+            <option value="fair">Fair</option>
+          </select>
+        </label>
+        <label>Location<input name="location" placeholder="e.g. Block C Hostel"></label>
+      </div>
+      <label>Image URL <span class="hint">(optional — paste a link, or leave blank for a default photo)</span><input name="imageUrl" placeholder="https://..."></label>
+      <label class="checkbox-row"><input type="checkbox" name="negotiable" checked> Price is negotiable</label>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;margin-top:10px;">🚀 Publish listing</button>
+    </form>
+  </section>
+</div>
+
+<!-- ================= CHAT ================= -->
+<div class="page" id="page-chat">
+  <section>
+    <div class="section-head"><div><h2>Your <span class="accent">Chats</span> 💬</h2></div></div>
+    <div class="chat-layout">
+      <div class="convo-list" id="convo-list"></div>
+      <div class="chat-window" id="chat-window"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= SELLER DASHBOARD ================= -->
+<div class="page" id="page-seller-dash">
+  <section>
+    <div class="section-head"><div><h2>Seller <span class="accent">Hub</span> 📊</h2><p>Your sales, at a glance.</p></div></div>
+    <div id="seller-dash-content"></div>
+  </section>
+</div>
+
+<!-- ================= BUYER DASHBOARD ================= -->
+<div class="page" id="page-buyer-dash">
+  <section>
+    <div class="section-head"><div><h2>My <span class="accent">Orders</span> 🛒</h2></div></div>
+    <div id="buyer-dash-content"></div>
+  </section>
+</div>
+
+<footer>© 2026 CampusHub — Buy • Sell • Connect on Campus</footer>
+
+<!-- ================= AUTH MODAL ================= -->
+<div class="modal-backdrop" id="auth-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    <h2 id="auth-title">Welcome back 👋</h2>
+
+    <form id="auth-login-form" onsubmit="handleLogin(event)">
+      <label>College email<input name="email" type="email" required placeholder="you@college.edu"></label>
+      <label>Password<input name="password" type="password" required placeholder="••••••••"></label>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Log in</button>
+      <p class="auth-switch">New here? <a onclick="switchAuthMode('register')">Create an account</a></p>
+      <p class="auth-hint">Demo login: aisha@college.edu / password123</p>
+    </form>
+
+    <form id="auth-register-form" onsubmit="handleRegister(event)" style="display:none">
+      <label>Full name<input name="name" required placeholder="Your name"></label>
+      <label>College email<input name="email" type="email" required placeholder="you@college.edu"></label>
+      <label>Hostel / location<input name="hostel" placeholder="e.g. Block C"></label>
+      <label>Password<input name="password" type="password" required minlength="6" placeholder="At least 6 characters"></label>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Create account</button>
+      <p class="auth-switch">Already a member? <a onclick="switchAuthMode('login')">Log in</a></p>
+    </form>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+<script>
+  // populate sell category select once categories load
+  (async () => {
+    const res = await fetch('/api/categories');
+    const { categories } = await res.json();
+    const sel = document.getElementById('sell-category');
+    sel.innerHTML = categories.map(c => `<option value="${c.id}">${c.emoji} ${c.label}</option>`).join('');
+  })();
+</script>
+</body>
+</html>
